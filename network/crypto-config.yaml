@@ -22,8 +22,8 @@ PeerOrgs:
   # ---------------------------------------------------------------------------
   # Org1
   # ---------------------------------------------------------------------------
-  - Name: Org1
-    Domain: org1.coderschool.vn
+  - Name: Fredrick
+    Domain: fredrick.coderschool.vn
     EnableNodeOUs: false
 
     # ---------------------------------------------------------------------------
@@ -105,10 +105,22 @@ PeerOrgs:
       Count: 1
 
   # ---------------------------------------------------------------------------
-  # Org2: See "Org1" for full specification
+  # Alice: See "Org1" for full specification
   # ---------------------------------------------------------------------------
-  - Name: Org2
-    Domain: org2.coderschool.vn
+  - Name: Alice
+    Domain: alice.coderschool.vn
+    EnableNodeOUs: false
+    Template:
+      Count: 1
+      SANS:
+        - "localhost"
+    Users:
+      Count: 1
+    CA:
+      Hostname: ca
+  
+  - Name: Bob
+    Domain: bob.coderschool.vn
     EnableNodeOUs: false
     Template:
       Count: 1
