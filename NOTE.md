@@ -37,3 +37,11 @@ This is my explanation to steps. You can leave your questions here
 
 https://gist.github.com/ali1rathore/4b9aba2e1f81160ea9a3a66023436e33
 
+
+
+
+## Marbles
+
+configtxgen -profile ThreeOrgsChannel -outputAnchorPeersUpdate FredrickMSPanchors.tx -channelID transfers -asOrg FredrickMSP
+configtxgen -profile ThreeOrgsChannel -outputAnchorPeersUpdate AliceMSPanchors.tx -channelID transfers -asOrg AliceMSP
+configtxgen -profile ThreeOrgsChannel -outputAnchorPeersUpdate BobMSPanchors.tx -channelID transfers -asOrg BobMSP
