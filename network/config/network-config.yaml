@@ -68,9 +68,25 @@ channels:
         # Default: true
         eventSource: true
 
-      #------------------------
-      # TODO add Alice's peer to this channel
-      #------------------------
+      peer0.alice.coderschool.vn:
+        # [Optional]. will this peer be sent transaction proposals for endorsement? The peer must
+        # have the chaincode installed. The app can also use this property to decide which peers
+        # to send the chaincode install request. Default: true
+        endorsingPeer: true
+
+        # [Optional]. will this peer be sent query proposals? The peer must have the chaincode
+        # installed. The app can also use this property to decide which peers to send the
+        # chaincode install request. Default: true
+        chaincodeQuery: true
+
+        # [Optional]. will this peer be sent query proposals that do not require chaincodes, like
+        # queryBlock(), queryTransaction(), etc. Default: true
+        ledgerQuery: true
+
+        # [Optional]. will this peer be the target of the SDK's listener registration? All peers can
+        # produce events but the app typically only needs to connect to one to listen to events.
+        # Default: true
+        eventSource: true
 
    
     # [Optional]. what chaincodes are expected to exist on this channel? The application can use
@@ -80,9 +96,141 @@ channels:
       # the format follows the "cannonical name" of chaincodes by fabric code
       - salmon_price_cc:v0
 
-  #---------------------
-  # TODO: Add the fredrick_bob and transfers channel
-  #--------------------
+  fredrick_bob:
+    # Required. list of orderers designated by the application to use for transactions on this
+    # channel. This list can be a result of access control ("org1" can only access "ordererA"), or
+    # operational decisions to share loads from applications among the orderers.  The values must
+    # be "names" of orgs defined under "organizations/peers"
+    orderers:
+      - orderer.coderschool.vn
+
+    # Required. list of peers from participating orgs
+    peers:
+      peer0.fredrick.coderschool.vn:
+        # [Optional]. will this peer be sent transaction proposals for endorsement? The peer must
+        # have the chaincode installed. The app can also use this property to decide which peers
+        # to send the chaincode install request. Default: true
+        endorsingPeer: true
+
+        # [Optional]. will this peer be sent query proposals? The peer must have the chaincode
+        # installed. The app can also use this property to decide which peers to send the
+        # chaincode install request. Default: true
+        chaincodeQuery: true
+
+        # [Optional]. will this peer be sent query proposals that do not require chaincodes, like
+        # queryBlock(), queryTransaction(), etc. Default: true
+        ledgerQuery: true
+
+        # [Optional]. will this peer be the target of the SDK's listener registration? All peers can
+        # produce events but the app typically only needs to connect to one to listen to events.
+        # Default: true
+        eventSource: true
+
+      peer0.bob.coderschool.vn:
+        # [Optional]. will this peer be sent transaction proposals for endorsement? The peer must
+        # have the chaincode installed. The app can also use this property to decide which peers
+        # to send the chaincode install request. Default: true
+        endorsingPeer: true
+
+        # [Optional]. will this peer be sent query proposals? The peer must have the chaincode
+        # installed. The app can also use this property to decide which peers to send the
+        # chaincode install request. Default: true
+        chaincodeQuery: true
+
+        # [Optional]. will this peer be sent query proposals that do not require chaincodes, like
+        # queryBlock(), queryTransaction(), etc. Default: true
+        ledgerQuery: true
+
+        # [Optional]. will this peer be the target of the SDK's listener registration? All peers can
+        # produce events but the app typically only needs to connect to one to listen to events.
+        # Default: true
+        eventSource: true
+
+   
+    # [Optional]. what chaincodes are expected to exist on this channel? The application can use
+    # this information to validate that the target peers are in the expected state by comparing
+    # this list with the query results of getInstalledChaincodes() and getInstantiatedChaincodes()
+    chaincodes:
+      # the format follows the "cannonical name" of chaincodes by fabric code
+      - salmon_price_cc:v0
+
+  fredrick_bob:
+    # Required. list of orderers designated by the application to use for transactions on this
+    # channel. This list can be a result of access control ("org1" can only access "ordererA"), or
+    # operational decisions to share loads from applications among the orderers.  The values must
+    # be "names" of orgs defined under "organizations/peers"
+    orderers:
+      - orderer.coderschool.vn
+
+    # Required. list of peers from participating orgs
+    peers:
+      peer0.fredrick.coderschool.vn:
+        # [Optional]. will this peer be sent transaction proposals for endorsement? The peer must
+        # have the chaincode installed. The app can also use this property to decide which peers
+        # to send the chaincode install request. Default: true
+        endorsingPeer: true
+
+        # [Optional]. will this peer be sent query proposals? The peer must have the chaincode
+        # installed. The app can also use this property to decide which peers to send the
+        # chaincode install request. Default: true
+        chaincodeQuery: true
+
+        # [Optional]. will this peer be sent query proposals that do not require chaincodes, like
+        # queryBlock(), queryTransaction(), etc. Default: true
+        ledgerQuery: true
+
+        # [Optional]. will this peer be the target of the SDK's listener registration? All peers can
+        # produce events but the app typically only needs to connect to one to listen to events.
+        # Default: true
+        eventSource: true
+      
+      peer0.alice.coderschool.vn:
+        # [Optional]. will this peer be sent transaction proposals for endorsement? The peer must
+        # have the chaincode installed. The app can also use this property to decide which peers
+        # to send the chaincode install request. Default: true
+        endorsingPeer: true
+
+        # [Optional]. will this peer be sent query proposals? The peer must have the chaincode
+        # installed. The app can also use this property to decide which peers to send the
+        # chaincode install request. Default: true
+        chaincodeQuery: true
+
+        # [Optional]. will this peer be sent query proposals that do not require chaincodes, like
+        # queryBlock(), queryTransaction(), etc. Default: true
+        ledgerQuery: true
+
+        # [Optional]. will this peer be the target of the SDK's listener registration? All peers can
+        # produce events but the app typically only needs to connect to one to listen to events.
+        # Default: true
+        eventSource: true
+
+      peer0.bob.coderschool.vn:
+        # [Optional]. will this peer be sent transaction proposals for endorsement? The peer must
+        # have the chaincode installed. The app can also use this property to decide which peers
+        # to send the chaincode install request. Default: true
+        endorsingPeer: true
+
+        # [Optional]. will this peer be sent query proposals? The peer must have the chaincode
+        # installed. The app can also use this property to decide which peers to send the
+        # chaincode install request. Default: true
+        chaincodeQuery: true
+
+        # [Optional]. will this peer be sent query proposals that do not require chaincodes, like
+        # queryBlock(), queryTransaction(), etc. Default: true
+        ledgerQuery: true
+
+        # [Optional]. will this peer be the target of the SDK's listener registration? All peers can
+        # produce events but the app typically only needs to connect to one to listen to events.
+        # Default: true
+        eventSource: true
+
+   
+    # [Optional]. what chaincodes are expected to exist on this channel? The application can use
+    # this information to validate that the target peers are in the expected state by comparing
+    # this list with the query results of getInstalledChaincodes() and getInstantiatedChaincodes()
+    chaincodes:
+      # the format follows the "cannonical name" of chaincodes by fabric code
+      - salmon_price_cc:v0
  
  
 
@@ -122,9 +270,57 @@ organizations:
     signedCert:
       path: crypto-config/peerOrganizations/fredrick.coderschool.vn/users/Admin@fredrick.coderschool.vn/msp/signcerts/Admin@fredrick.coderschool.vn-cert.pem
 
-  #-------------
-  # TODO: Fill in the Alice and Bob organizations
-  #--------------
+  Alice:
+    mspid: AliceMSP
+
+    peers:
+      - peer0.alice.coderschool.vn
+
+    # [Optional]. Certificate Authorities issue certificates for identification purposes in a Fabric based
+    # network. Typically certificates provisioning is done in a separate process outside of the
+    # runtime network. Fabric-CA is a special certificate authority that provides a REST APIs for
+    # dynamic certificate management (enroll, revoke, re-enroll). The following section is only for
+    # Fabric-CA servers.
+    certificateAuthorities:
+      - ca-alice
+
+    # [Optional]. If the application is going to make requests that are reserved to organization
+    # administrators, including creating/updating channels, installing/instantiating chaincodes, it
+    # must have access to the admin identity represented by the private key and signing certificate.
+    # Both properties can be the PEM string or local path to the PEM file. Note that this is mainly for
+    # convenience in development mode, production systems should not expose sensitive information
+    # this way. The SDK should allow applications to set the org admin identity via APIs, and only use
+    # this route as an alternative when it exists.
+    adminPrivateKey:
+      path: crypto-config/peerOrganizations/alice.coderschool.vn/users/Admin@alice.coderschool.vn/msp/keystore/key.pem
+    signedCert:
+      path: crypto-config/peerOrganizations/alice.coderschool.vn/users/Admin@alice.coderschool.vn/msp/signcerts/Admin@alice.coderschool.vn-cert.pem
+
+  Bob:
+    mspid: BobMSP
+
+    peers:
+      - peer0.bob.coderschool.vn
+
+    # [Optional]. Certificate Authorities issue certificates for identification purposes in a Fabric based
+    # network. Typically certificates provisioning is done in a separate process outside of the
+    # runtime network. Fabric-CA is a special certificate authority that provides a REST APIs for
+    # dynamic certificate management (enroll, revoke, re-enroll). The following section is only for
+    # Fabric-CA servers.
+    certificateAuthorities:
+      - ca-bob
+
+    # [Optional]. If the application is going to make requests that are reserved to organization
+    # administrators, including creating/updating channels, installing/instantiating chaincodes, it
+    # must have access to the admin identity represented by the private key and signing certificate.
+    # Both properties can be the PEM string or local path to the PEM file. Note that this is mainly for
+    # convenience in development mode, production systems should not expose sensitive information
+    # this way. The SDK should allow applications to set the org admin identity via APIs, and only use
+    # this route as an alternative when it exists.
+    adminPrivateKey:
+      path: crypto-config/peerOrganizations/bob.coderschool.vn/users/Admin@bob.coderschool.vn/msp/keystore/key.pem
+    signedCert:
+      path: crypto-config/peerOrganizations/bob.coderschool.vn/users/Admin@bob.coderschool.vn/msp/signcerts/Admin@bob.coderschool.vn-cert.pem
 
 #
 # List of orderers to send transaction and channel create/update requests to. For the time
@@ -161,9 +357,29 @@ peers:
     tlsCACerts:
       path: crypto-config/peerOrganizations/fredrick.coderschool.vn/peers/peer0.fredrick.coderschool.vn/tls/ca.crt
 
-  #--------------------------------
-  # TODO: fill in the other peers using info from your docker-compose.yaml and crypto-config.yaml
-  #--------------------------------
+  peer0.alice.coderschool.vn:
+    # this URL is used to send endorsement and query requests
+    url: grpcs://localhost:8051
+
+    # this URL is used to connect the EventHub and registering event listeners
+    eventUrl: grpcs://localhost:8053
+
+    grpcOptions:
+      ssl-target-name-override: peer0.alice.coderschool.vn
+    tlsCACerts:
+      path: crypto-config/peerOrganizations/alice.coderschool.vn/peers/peer0.alice.coderschool.vn/tls/ca.crt
+
+  peer0.bob.coderschool.vn:
+    # this URL is used to send endorsement and query requests
+    url: grpcs://localhost:9051
+
+    # this URL is used to connect the EventHub and registering event listeners
+    eventUrl: grpcs://localhost:9053
+
+    grpcOptions:
+      ssl-target-name-override: peer0.bob.coderschool.vn
+    tlsCACerts:
+      path: crypto-config/peerOrganizations/bob.coderschool.vn/peers/peer0.bob.coderschool.vn/tls/ca.crt
  
 #
 # Fabric-CA is a special kind of Certificate Authority provided by Hyperledger Fabric which allows
@@ -188,6 +404,36 @@ certificateAuthorities:
     # [Optional] The optional name of the CA.
     caName: ca-fredrick
 
-  #----------------
-  # TODO: Fill in the other CAs
-  #----------------
+  ca-alice:
+    url: https://localhost:8054
+    # the properties specified under this object are passed to the 'http' client verbatim when
+    # making the request to the Fabric-CA server
+    httpOptions:
+      verify: false
+    tlsCACerts:
+      path: crypto-config/peerOrganizations/alice.coderschool.vn/ca/ca.alice.coderschool.vn-cert.pem
+
+    # Fabric-CA supports dynamic user enrollment via REST APIs. A "root" user, a.k.a registrar, is
+    # needed to enroll and invoke new users.
+    registrar:
+      - enrollId: admin
+        enrollSecret: adminpw
+    # [Optional] The optional name of the CA.
+    caName: ca-alice
+
+  ca-bob:
+    url: https://localhost:9054
+    # the properties specified under this object are passed to the 'http' client verbatim when
+    # making the request to the Fabric-CA server
+    httpOptions:
+      verify: false
+    tlsCACerts:
+      path: crypto-config/peerOrganizations/bob.coderschool.vn/ca/ca.bob.coderschool.vn-cert.pem
+
+    # Fabric-CA supports dynamic user enrollment via REST APIs. A "root" user, a.k.a registrar, is
+    # needed to enroll and invoke new users.
+    registrar:
+      - enrollId: admin
+        enrollSecret: adminpw
+    # [Optional] The optional name of the CA.
+    caName: ca-bob
