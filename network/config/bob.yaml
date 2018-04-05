@@ -27,7 +27,7 @@ version: "1.0"
 client:
   # Which organization does this application instance belong to? The value must be the name of an org
   # defined under "organizations"
-  organization: bob
+  organization: Bob
 
   # Some SDKs support pluggable KV stores, the properties under "credentialStore"
   # are implementation specific

@@ -1,12 +1,16 @@
 var hfc = require('fabric-client');
 
+var log4js = require('log4js');
+var logger = log4js.getLogger('Helper');
+
 async function getClientForOrg (userorg, username) {
-	logger.debug('getClientForOrg - ****** START %s %s', userorg, username)
+	logger.debug('=== getClientForOrg - ****** START %s %s', userorg, username)
 	// get a fabric client loaded with a connection profile for this org
 	let config = '-connection-profile-path';
 
 	// build a client context and load it with a connection profile
 	// lets only load the network settings and save the client for later
+	logger.debug('=== loadFromConfig network')
 	let client = hfc.loadFromConfig(hfc.getConfigSetting('network'+config));
 
 	// This will load a connection profile over the top of the current one one
@@ -14,10 +18,12 @@ async function getClientForOrg (userorg, username) {
 	// nothing will actually be replaced.
 	// This will also set an admin identity because the organization defined in the
 	// client section has one defined
+	logger.debug('=== loadFromConfig ', userorg)
 	client.loadFromConfig(hfc.getConfigSetting(userorg+config));
 
 	// this will create both the state store and the crypto store based
 	// on the settings in the client section of the connection profile
+	logger.debug('=== initCredentialStores ')
 	await client.initCredentialStores();
 
 	// The getUserContext call tries to get the user from persistence.

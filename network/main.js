@@ -17,10 +17,18 @@ hfc.setConfigSetting('alice-connection-profile-path',path.join(__dirname, 'confi
 hfc.setConfigSetting('bob-connection-profile-path',path.join(__dirname, 'config', 'bob.yaml'));
 
 const getRegisteredUser = require('./getRegisteredUser')
+const getClientForOrg = require('./getClientForOrg')
 
 async function start() {
-  const aliceUser1 = await getRegisteredUser('user1','alice',true)
-  console.log('aliceUser1: ', aliceUser1)
-  // createChannel('transfers','./transfers.tx','f1','fredrick').then(function(res){return res})
-  // joinChannel("fredrick-bob",["peer0.fredrick.coderschool.vn"],"admin","fredrick")
+  try {
+    // await getClientForOrg('bob')
+    const aliceUser1 = await getRegisteredUser('user17','alice',true)
+    // console.log('aliceUser1: ', aliceUser1)
+    // createChannel('transfers','./transfers.tx','f1','fredrick').then(function(res){return res})
+    // joinChannel("fredrick-bob",["peer0.fredrick.coderschool.vn"],"admin","fredrick")
+  } catch (err) {
+    console.error(err)
+  }
 }
+
+start()
