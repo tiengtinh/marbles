@@ -1,3 +1,10 @@
+const fs = require('fs')
+const path = require('path')
+var log4js = require('log4js');
+var logger = log4js.getLogger('Helper');
+
+const getClientForOrg = require('./getClientForOrg')
+
 //Attempt to send a request to the orderer with the sendTransaction method
 var createChannel = async function(channelName, channelConfigPath, username, orgName) {
 	logger.debug('\n====== Creating Channel \'' + channelName + '\' ======\n');
