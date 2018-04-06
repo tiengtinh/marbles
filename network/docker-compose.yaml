@@ -21,7 +21,7 @@ services:
       - FABRIC_CA_SERVER_TLS_CERTFILE=/etc/hyperledger/fabric-ca-server-config/ca.fredrick.coderschool.vn-cert.pem
       - FABRIC_CA_SERVER_TLS_KEYFILE=/etc/hyperledger/fabric-ca-server-config/key.pem
     ports:
-      - "7054:7054"
+      - "17054:7054"
     command: sh -c 'fabric-ca-server start -b admin:adminpw -d'
     volumes:
       - ./crypto-config/peerOrganizations/fredrick.coderschool.vn/ca/:/etc/hyperledger/fabric-ca-server-config
@@ -41,7 +41,7 @@ services:
       - FABRIC_CA_SERVER_TLS_CERTFILE=/etc/hyperledger/fabric-ca-server-config/ca.alice.coderschool.vn-cert.pem
       - FABRIC_CA_SERVER_TLS_KEYFILE=/etc/hyperledger/fabric-ca-server-config/key.pem
     ports:
-      - "8054:7054"
+      - "18054:7054"
     command: sh -c 'fabric-ca-server start -b admin:adminpw -d'
     volumes:
       - ./crypto-config/peerOrganizations/alice.coderschool.vn/ca/:/etc/hyperledger/fabric-ca-server-config
@@ -61,7 +61,7 @@ services:
       - FABRIC_CA_SERVER_TLS_CERTFILE=/etc/hyperledger/fabric-ca-server-config/ca.bob.coderschool.vn-cert.pem
       - FABRIC_CA_SERVER_TLS_KEYFILE=/etc/hyperledger/fabric-ca-server-config/key.pem
     ports:
-      - "9054:7054"
+      - "19054:7054"
     command: sh -c 'fabric-ca-server start -b admin:adminpw -d'
     volumes:
       - ./crypto-config/peerOrganizations/bob.coderschool.vn/ca/:/etc/hyperledger/fabric-ca-server-config
@@ -88,7 +88,7 @@ services:
     working_dir: /opt/gopath/src/github.com/hyperledger/fabric/orderers
     command: orderer
     ports:
-      - 7050:7050
+      - 17050:7050
     volumes:
       - ./channel:/etc/hyperledger/configtx
       - ./crypto-config/ordererOrganizations/coderschool.vn/orderers/orderer.coderschool.vn/:/etc/hyperledger/crypto/orderer
@@ -108,8 +108,8 @@ services:
       - CORE_PEER_LOCALMSPID=FredrickMSP
       - CORE_PEER_ADDRESS=peer0.fredrick.coderschool.vn:7051
     ports:
-      - 7051:7051
-      - 7053:7053
+      - 17051:7051
+      - 17053:7053
     volumes:
         - ./crypto-config/peerOrganizations/fredrick.coderschool.vn/peers/peer0.fredrick.coderschool.vn/:/etc/hyperledger/crypto/peer
     depends_on:
@@ -127,8 +127,8 @@ services:
       - CORE_PEER_LOCALMSPID=AliceMSP
       - CORE_PEER_ADDRESS=peer0.alice.coderschool.vn:7051
     ports:
-      - 8051:7051
-      - 8053:7053
+      - 18051:7051
+      - 18053:7053
     volumes:
         - ./crypto-config/peerOrganizations/alice.coderschool.vn/peers/peer0.alice.coderschool.vn/:/etc/hyperledger/crypto/peer
     depends_on:
@@ -146,8 +146,8 @@ services:
       - CORE_PEER_LOCALMSPID=BobMSP
       - CORE_PEER_ADDRESS=peer0.bob.coderschool.vn:7051
     ports:
-      - 9051:7051
-      - 9053:7053
+      - 19051:7051
+      - 19053:7053
     volumes:
         - ./crypto-config/peerOrganizations/bob.coderschool.vn/peers/peer0.bob.coderschool.vn/:/etc/hyperledger/crypto/peer
     depends_on:
@@ -155,8 +155,8 @@ services:
     networks:
       - basic
   
-  cli:
-    container_name: cli
+  cli.coderschool.vn:
+    container_name: cli.coderschool.vn
     image: hyperledger/fabric-tools
     tty: true
     environment:
@@ -167,6 +167,10 @@ services:
       - CORE_PEER_ADDRESS=peer0.fredrick.coderschool.vn:7051
       - CORE_PEER_LOCALMSPID=FredrickMSP
       - CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/fredrick.coderschool.vn/users/Admin@fredrick.coderschool.vn/msp
+      - CORE_PEER_TLS_ENABLED=true
+      - CORE_PEER_TLS_CERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/fredrick.coderschool.vn/peers/peer0.fredrick.coderschool.vn/tls/server.crt
+      - CORE_PEER_TLS_KEY_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/fredrick.coderschool.vn/peers/peer0.fredrick.coderschool.vn/tls/server.key
+      - CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/fredrick.coderschool.vn/peers/peer0.fredrick.coderschool.vn/tls/ca.crt
       - CORE_CHAINCODE_KEEPALIVE=10
     working_dir: /opt/gopath/src/github.com/hyperledger/fabric/peer
     command: /bin/bash
@@ -184,6 +188,6 @@ services:
     container_name: api.coderschool.vn
     build: ../api/
     ports:
-      - "8080:8080"
+      - "18080:8080"
     networks:
       - basic
