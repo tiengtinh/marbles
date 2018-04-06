@@ -19,15 +19,20 @@ hfc.setConfigSetting('bob-connection-profile-path',path.join(__dirname, 'config'
 const getRegisteredUser = require('./getRegisteredUser')
 const getClientForOrg = require('./getClientForOrg')
 const createChannel = require('./createChannel')
+const joinChannel = require('./joinChannel')
 
 async function start() {
   try {
     // await getClientForOrg('bob')
+
     // const aliceUser1 = await getRegisteredUser('user17','alice',true)
     // console.log('aliceUser1: ', aliceUser1)
-    const createChannelResult = await createChannel('transfers','./channel/transfers.tx','f1','fredrick')
-    logger.info('createChannelResult ', createChannelResult)
-    // joinChannel("fredrick-bob",["peer0.fredrick.coderschool.vn"],"admin","fredrick")
+    
+    // const createChannelResult = await createChannel('transfers','./channel/transfers.tx','f1','fredrick')
+    // logger.info('createChannelResult ', createChannelResult)
+
+    const joinChannelResult = await joinChannel("fredrick-bob",["peer0.fredrick.coderschool.vn"],"admin","fredrick")
+    logger.info('joinChannelResult ', joinChannelResult)
   } catch (err) {
     console.error(err)
   }

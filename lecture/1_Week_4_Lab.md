@@ -213,7 +213,7 @@ ali@ali-xps:~/code/week4/lab$ ./bin/configtxgen -profile ThreeOrgsOrdererGenesis
 Create the channel configuration transcation like so (you can name the channel anything you like):
 
 ```bash
-configtxgen -profile ThreeOrgsChannel -outputCreateChannelTx mychannel.tx -channelID mychannel
+configtxgen -profile ThreeOrgsChannel -outputCreateChannelTx mychannel.tx -channelID mychannel # require configtx.yaml
 ```
 
 You should see:

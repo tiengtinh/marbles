@@ -1,3 +1,8 @@
+const getClientForOrg = require('./getClientForOrg')
+
+var log4js = require('log4js');
+var logger = log4js.getLogger('Helper');
+
 /*
  * Have an organization join a channel
  */
@@ -135,3 +140,5 @@ var joinChannel = async function(channel_name, peers, username, org_name) {
 		throw new Error(message);
 	}
 };
+
+module.exports = joinChannel

@@ -11,17 +11,19 @@ var createChannel = async function(channelName, channelConfigPath, username, org
 	try {
 		// first setup the client for this org
 		var client = await getClientForOrg(orgName);
-		logger.debug('Successfully got the fabric client for the organization "%s"', orgName);
+		logger.debug('=== Successfully got the fabric client for the organization "%s"', orgName);
 
 		// read in the envelope for the channel config raw bytes
 		var envelope = fs.readFileSync(path.join(__dirname, channelConfigPath));
 		// extract the channel config bytes from the envelope to be signed
+		logger.debug('=== extractChannelConfig')
 		var channelConfig = client.extractChannelConfig(envelope);
 
 		//Acting as a client in the given organization provided with "orgName" param
 		// sign the channel config bytes as "endorsement", this is required by
 		// the orderer's channel creation policy
 		// this will use the admin identity assigned to the client when the connection profile was loaded
+		logger.debug('=== signChannelConfig')
 		let signature = client.signChannelConfig(channelConfig);
 
 		let request = {
@@ -32,6 +34,7 @@ var createChannel = async function(channelName, channelConfigPath, username, org
 		};
 
 		// send to orderer
+		logger.debug('=== createChannel')
 		var response = await client.createChannel(request)
 		logger.debug(' response ::%j', response);
 		if (response && response.status === 'SUCCESS') {
