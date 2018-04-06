@@ -38,7 +38,7 @@ This is my explanation to steps. You can leave your questions here
 https://gist.github.com/ali1rathore/4b9aba2e1f81160ea9a3a66023436e33
 
 
-
+`docker kill $(docker ps -q)`
 
 ## Marbles
 

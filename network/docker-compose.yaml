@@ -5,6 +5,9 @@
 #
 version: '2'
 
+networks:
+  basic:
+
 services:
 
   ca.fredrick.coderschool.vn:
@@ -24,6 +27,8 @@ services:
       - ./crypto-config/peerOrganizations/fredrick.coderschool.vn/ca/:/etc/hyperledger/fabric-ca-server-config
       - ./fabric-ca-server-config.yaml:/etc/hyperledger/fabric-ca-server/fabric-ca-server-config.yaml
     container_name: ca.fredrick.coderschool.vn
+    networks:
+      - basic
 
   ca.alice.coderschool.vn:
     image: hyperledger/fabric-ca
@@ -42,6 +47,8 @@ services:
       - ./crypto-config/peerOrganizations/alice.coderschool.vn/ca/:/etc/hyperledger/fabric-ca-server-config
       - ./fabric-ca-server-config.yaml:/etc/hyperledger/fabric-ca-server/fabric-ca-server-config.yaml
     container_name: ca.alice.coderschool.vn
+    networks:
+      - basic
   
   ca.bob.coderschool.vn:
     image: hyperledger/fabric-ca
@@ -61,6 +68,8 @@ services:
       - ./fabric-ca-server-config.yaml:/etc/hyperledger/fabric-ca-server/fabric-ca-server-config.yaml
       
     container_name: ca.bob.coderschool.vn
+    networks:
+      - basic
 
   orderer.coderschool.vn:
     container_name: orderer.coderschool.vn
@@ -81,11 +90,13 @@ services:
     ports:
       - 7050:7050
     volumes:
-        - ./channel:/etc/hyperledger/configtx
-        - ./crypto-config/ordererOrganizations/coderschool.vn/orderers/orderer.coderschool.vn/:/etc/hyperledger/crypto/orderer
-        - ./crypto-config/peerOrganizations/fredrick.coderschool.vn/peers/peer0.fredrick.coderschool.vn/:/etc/hyperledger/crypto/peerFredrick
-        - ./crypto-config/peerOrganizations/alice.coderschool.vn/peers/peer0.alice.coderschool.vn/:/etc/hyperledger/crypto/peerAlice
-        - ./crypto-config/peerOrganizations/bob.coderschool.vn/peers/peer0.bob.coderschool.vn/:/etc/hyperledger/crypto/peerBob
+      - ./channel:/etc/hyperledger/configtx
+      - ./crypto-config/ordererOrganizations/coderschool.vn/orderers/orderer.coderschool.vn/:/etc/hyperledger/crypto/orderer
+      - ./crypto-config/peerOrganizations/fredrick.coderschool.vn/peers/peer0.fredrick.coderschool.vn/:/etc/hyperledger/crypto/peerFredrick
+      - ./crypto-config/peerOrganizations/alice.coderschool.vn/peers/peer0.alice.coderschool.vn/:/etc/hyperledger/crypto/peerAlice
+      - ./crypto-config/peerOrganizations/bob.coderschool.vn/peers/peer0.bob.coderschool.vn/:/etc/hyperledger/crypto/peerBob
+    networks:
+      - basic
 
   peer0.fredrick.coderschool.vn:
     container_name: peer0.fredrick.coderschool.vn
@@ -103,6 +114,8 @@ services:
         - ./crypto-config/peerOrganizations/fredrick.coderschool.vn/peers/peer0.fredrick.coderschool.vn/:/etc/hyperledger/crypto/peer
     depends_on:
       - orderer.coderschool.vn
+    networks:
+      - basic
 
   peer0.alice.coderschool.vn:
     container_name: peer0.alice.coderschool.vn
@@ -120,6 +133,8 @@ services:
         - ./crypto-config/peerOrganizations/alice.coderschool.vn/peers/peer0.alice.coderschool.vn/:/etc/hyperledger/crypto/peer
     depends_on:
       - orderer.coderschool.vn
+    networks:
+      - basic
   
   peer0.bob.coderschool.vn:
     container_name: peer0.bob.coderschool.vn
@@ -137,3 +152,38 @@ services:
         - ./crypto-config/peerOrganizations/bob.coderschool.vn/peers/peer0.bob.coderschool.vn/:/etc/hyperledger/crypto/peer
     depends_on:
       - orderer.coderschool.vn
+    networks:
+      - basic
+  
+  cli:
+    container_name: cli
+    image: hyperledger/fabric-tools
+    tty: true
+    environment:
+      - GOPATH=/opt/gopath
+      - CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
+      - CORE_LOGGING_LEVEL=DEBUG
+      - CORE_PEER_ID=cli
+      - CORE_PEER_ADDRESS=peer0.fredrick.coderschool.vn:7051
+      - CORE_PEER_LOCALMSPID=FredrickMSP
+      - CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/fredrick.coderschool.vn/users/Admin@fredrick.coderschool.vn/msp
+      - CORE_CHAINCODE_KEEPALIVE=10
+    working_dir: /opt/gopath/src/github.com/hyperledger/fabric/peer
+    command: /bin/bash
+    volumes:
+        - /var/run/:/host/var/run/
+        - ./../chaincode/:/opt/gopath/src/github.com/
+        - ./crypto-config:/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/
+    depends_on:
+      - orderer.coderschool.vn
+      - peer0.fredrick.coderschool.vn
+    networks:
+      - basic
+
+  api.coderschool.vn:
+    container_name: api.coderschool.vn
+    build: ../api/
+    ports:
+      - "8080:8080"
+    networks:
+      - basic
