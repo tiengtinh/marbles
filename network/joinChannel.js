@@ -1,5 +1,5 @@
 const getClientForOrg = require('./getClientForOrg')
-
+var util = require('util');
 var log4js = require('log4js');
 var logger = log4js.getLogger('Helper');
 
@@ -16,6 +16,7 @@ var joinChannel = async function(channel_name, peers, username, org_name) {
 		// first setup the client for this org
 		var client = await getClientForOrg(org_name, username);
 		logger.debug('Successfully got the fabric client for the organization "%s"', org_name);
+		logger.debug('=== getChannel')
 		var channel = client.getChannel(channel_name);
 		if(!channel) {
 			let message = util.format('Channel %s was not defined in the connection profile', channel_name);
@@ -28,12 +29,14 @@ var joinChannel = async function(channel_name, peers, username, org_name) {
 		let request = {
 			txId : 	client.newTransactionID(true) //get an admin based transactionID
 		};
+		logger.debug('=== getGenesisBlock')
 		let genesis_block = await channel.getGenesisBlock(request);
 
 		// tell each peer to join and wait for the event hub of each peer to tell us
 		// that the channel has been created on each peer
 		var promises = [];
 		var block_registration_numbers = [];
+		logger.debug('=== getEventHubsForOrg')
 		let event_hubs = client.getEventHubsForOrg(org_name);
 		event_hubs.forEach((eh) => {
 			let configBlockPromise = new Promise((resolve, reject) => {
@@ -88,6 +91,7 @@ var joinChannel = async function(channel_name, peers, username, org_name) {
 		// lets check the results of sending to the peers which is
 		// last in the results array
 		let peers_results = results.pop();
+		logger.debug('=== peers_results', peers_results)
 		// then each peer results
 		for(let i in peers_results) {
 			let peer_result = peers_results[i];

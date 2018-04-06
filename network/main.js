@@ -27,12 +27,31 @@ async function start() {
 
     // const aliceUser1 = await getRegisteredUser('user17','alice',true)
     // console.log('aliceUser1: ', aliceUser1)
+    // const fredrickUser = await getRegisteredUser('user2','fredrick',true)
+    // console.log('fredrickUser: ', fredrickUser)
+    // const bobUser = await getRegisteredUser('user1','bob',true)
+    // console.log('bobUser: ', bobUser)
     
     // const createChannelResult = await createChannel('transfers','./channel/transfers.tx','f1','fredrick')
     // logger.info('createChannelResult ', createChannelResult)
+    // const createChannelResult = await createChannel('fredrick-bob','./channel/fredrick-bob.tx','f1','fredrick')
+    // logger.info('createChannelResult ', createChannelResult)
+    // const createChannelResult = await createChannel('fredrick-alice','./channel/fredrick-alice.tx','f1','fredrick')
+    // logger.info('createChannelResult ', createChannelResult)
 
-    const joinChannelResult = await joinChannel("fredrick-bob",["peer0.fredrick.coderschool.vn"],"admin","fredrick")
-    logger.info('joinChannelResult ', joinChannelResult)
+    // const joinChannelResult = await joinChannel("fredrick-bob",["peer0.fredrick.coderschool.vn"],"admin","fredrick")
+    // logger.info('joinChannelResult ', joinChannelResult)
+
+    // this is possible. why?
+    // https://gyazo.com/24760763b68c7cfdcf26035db42d4d8a
+    // const joinChannelResult = await joinChannel("fredrick-alice",["peer0.bob.coderschool.vn"],"admin","bob")
+    // logger.info('joinChannelResult ', joinChannelResult)
+
+    // custom channel that isn't defined in network-config.yaml
+    // const createChannelResult = await createChannel('bob-alice','./channel/bob-alice.tx','user1','bob')
+    // logger.info('createChannelResult ', createChannelResult)
+    // const joinChannelResult = await joinChannel("bob-alice",["peer0.bob.coderschool.vn"],"admin","bob")
+    // logger.info('joinChannelResult ', joinChannelResult)
   } catch (err) {
     console.error(err)
   }
